@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LB_EloForte.Views.ListaClientesPage">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+        <Frame HasShadow="True"
+               Margin="0"
+               Padding="0"
+               CornerRadius="5"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Frame HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       BackgroundColor="{StaticResource Key=verde_eloforte}"
+                       Padding="0"
+                       Margin="0">
+                    <Label Text="LISTA CLIENTES"
+                           FontSize="Title"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Start"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Frame>
+                <Frame HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       CornerRadius="10"
+                       Margin="5"
+                       HasShadow="True">
+                    <Grid ColumnDefinitions="*,*,Auto">
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Nome Cliente"
+                                   TextColor="Gray"
+                                   FontSize="Caption"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"/>
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center"
+                                   TextTransform="Uppercase"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding nmCliente}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical"
+                                     Grid.Column="1">
+                            <Label Text="Nome Cidade"
+                                   TextColor="Gray"
+                                   FontSize="Caption"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"/>
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center"
+                                   TextTransform="Uppercase"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding nmCidade}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2">
+                            <ImageButton Source="lupa.png"
+                                         CornerRadius="100"
+                                         HeightRequest="55"
+                                         WidthRequest="55"
+                                         Aspect="AspectFit"
+                                         Command="{Binding BuscarCommand}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="1" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="0.8" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource Key=verde_eloforte}"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </ImageButton>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <CollectionView x:Name="cvClientes"
+                                Margin="5"
+                                HorizontalOptions="FillAndExpand"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Always"
+                                ItemsSource="{Binding Clientes}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <Label Text="SEM CLIENTE"
+                                   FontSize="Title"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Key=verde_eloforte}"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <pv:PancakeView VerticalOptions="StartAndExpand"
+                                            HorizontalOptions="FillAndExpand">
+                                <Grid VerticalOptions="StartAndExpand"
+                                      HorizontalOptions="FillAndExpand"
+                                      ColumnDefinitions="Auto,*">
+                                    <BoxView BackgroundColor="{StaticResource Key=verde_eloforte}"
+                                             WidthRequest="3"
+                                             HorizontalOptions="Start"
+                                             VerticalOptions="FillAndExpand"/>
+                                    <tk:Expander Grid.Column="1">
+                                        <tk:Expander.Header>
+                                            <Grid ColumnDefinitions="*,Auto"
+                                                  RowDefinitions="Auto,Auto"
+                                                  BackgroundColor="{StaticResource Key=cor_detalhe}"
+                                                  Padding="5">
+                                                <Label Text="{Binding Nm_clifor}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       VerticalOptions="Fill"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"
+                                                       Grid.ColumnSpan="2"/>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             VerticalOptions="FillAndExpand"
+                                                             Grid.Row="1"
+                                                             Grid.Column="0">
+                                                    <Label Text="CNPJ/CPF"
+                                                           TextColor="Gray"
+                                                           FontSize="Caption"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding Nr_docto}"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalOptions="StartAndExpand"
+                                                           VerticalOptions="Fill"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                                <ImageButton Source="confirmar.png"
+                                                             CornerRadius="100"
+                                                             HeightRequest="55"
+                                                             WidthRequest="55"
+                                                             Aspect="AspectFit"
+                                                             Grid.Column="1"
+                                                             Grid.Row="1"
+                                                             Command="{Binding Source={x:Reference cvClientes}, Path=BindingContext.SelecionarCommand}"
+                                                             CommandParameter="{Binding .}">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Scale"
+                                                                            Value="1" />
+                                                                    <Setter Property="BackgroundColor"
+                                                                            Value="Transparent"/>
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Pressed">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Scale"
+                                                                            Value="0.8" />
+                                                                    <Setter Property="BackgroundColor"
+                                                                            Value="{StaticResource Key=verde_eloforte}"/>
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                </ImageButton>
+                                            </Grid>
+                                        </tk:Expander.Header>
+                                        <Grid ColumnDefinitions="*,Auto"
+                                              RowDefinitions="Auto,Auto,Auto,Auto">
+                                            <StackLayout Orientation="Vertical"
+                                                         HorizontalOptions="Fill"
+                                                         VerticalOptions="Fill"
+                                                         Grid.ColumnSpan="2">
+                                                <Label Text="Rua"
+                                                       TextColor="Gray"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Ds_endereco}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical"
+                                                         HorizontalOptions="Fill"
+                                                         VerticalOptions="Fill"
+                                                         Grid.Row="1"
+                                                         Grid.Column="0">
+                                                <Label Text="Bairro"
+                                                       TextColor="Gray"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Bairro}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical"
+                                                         HorizontalOptions="Fill"
+                                                         VerticalOptions="Fill"
+                                                         Grid.Row="1"
+                                                         Grid.Column="1">
+                                                <Label Text="Numero"
+                                                       TextColor="Gray"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Numero}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical"
+                                                         HorizontalOptions="Fill"
+                                                         VerticalOptions="Fill"
+                                                         Grid.Row="2"
+                                                         Grid.Column="0">
+                                                <Label Text="Cidade"
+                                                       TextColor="Gray"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Ds_cidade}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical"
+                                                         HorizontalOptions="Fill"
+                                                         Grid.Row="2"
+                                                         Grid.Column="1">
+                                                <Label Text="UF"
+                                                       TextColor="Gray"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Uf}"
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       HorizontalTextAlignment="Start"
+                                                       VerticalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <Grid HorizontalOptions="FillAndExpand"
+                                                  VerticalOptions="FillAndExpand"
+                                                  Grid.Row="3"
+                                                  Grid.ColumnSpan="2"
+                                                  ColumnDefinitions="*,*,*">
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="Fill"
+                                                             VerticalOptions="Fill">
+                                                    <Label Text="Fone"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding Fone}"
+                                                           TextColor="Black"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="Fill"
+                                                             VerticalOptions="Fill"
+                                                             Grid.Column="1">
+                                                    <Label Text="Celular"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding Celular}"
+                                                           TextColor="Black"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="Fill"
+                                                             VerticalOptions="Fill"
+                                                             Grid.Column="2">
+                                                    <Label Text="IE"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding Insc_estadual}"
+                                                           TextColor="Black"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Grid>
+                                    </tk:Expander>
+                                </Grid>
+                            </pv:PancakeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Frame>
+        <Button x:Name="btnNovo"
+                ImageSource="salvar.png"
+                CornerRadius="100"
+                HeightRequest="55"
+                WidthRequest="55"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Padding="15"
+                Margin="10"
+                BackgroundColor="{StaticResource Key=verde_eloforte}"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Command="{Binding NovoCommand}"/>
+    </AbsoluteLayout>
+</ContentPage>

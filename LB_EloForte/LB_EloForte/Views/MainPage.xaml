@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:tk="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="LB_EloForte.Views.MainPage">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+        <Frame HasShadow="True"
+               Margin="0"
+               Padding="0"
+               CornerRadius="5"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Frame HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       BackgroundColor="{StaticResource Key=verde_eloforte}"
+                       Margin="0"
+                       Padding="0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="ORDEM SERVIÇO"
+                               FontSize="Title"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                        <ImageButton Source="logout.png"
+                                     Margin="5,5,5,5"
+                                     WidthRequest="50"
+                                     HeightRequest="50"
+                                     Aspect="AspectFit"
+                                     Grid.Column="1"
+                                     Command="{Binding SairCommand}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale"
+                                                    Value="1" />
+                                            <Setter Property="BackgroundColor"
+                                                    Value="Transparent"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale"
+                                                    Value="0.8" />
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource Key=verde_eloforte}"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </ImageButton>
+                    </Grid>
+                </Frame>
+                <Frame HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       CornerRadius="10"
+                       Margin="5"
+                       Padding="5"
+                       HasShadow="True">
+                    <Grid HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          ColumnDefinitions="*,*"
+                          RowDefinitions="Auto,Auto,Auto">
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     Grid.ColumnSpan="2">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BuscarClienteCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Entry x:Name="txtCliente"
+                                   FontSize="12"
+                                   TextColor="Black"
+                                   InputTransparent="True"
+                                   Placeholder="Contratante"
+                                   HorizontalOptions="FillAndExpand"
+                                   IsReadOnly="True"
+                                   Text="{Binding Nm_contratante}"/>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     Grid.Row="1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BuscarCidadeCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Entry x:Name="txtCidade"
+                                       TextColor="Black"
+                                       FontSize="12"
+                                       InputTransparent="True"
+                                       Placeholder="Cidade Fazenda"
+                                       HorizontalOptions="FillAndExpand"
+                                       IsReadOnly="True"
+                                       Text="{Binding Ds_cidade}"/>
+                        </StackLayout>
+                        <Entry x:Name="txtNmFazenda"
+                               Placeholder="Nome Fazenda"
+                               FontSize="12"
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Nm_fazenda}"
+                               TextTransform="Uppercase"
+                               Grid.Row="1"
+                               Grid.Column="1"/>
+                        <Grid HorizontalOptions="FillAndExpand"
+                              VerticalOptions="FillAndExpand"
+                              Grid.ColumnSpan="2"
+                              Grid.Row="2"
+                              ColumnDefinitions="*,*,Auto">
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="FillAndExpand">
+                                <Label Text="Data Inicio"
+                                       TextColor="Gray"
+                                       FontSize="10"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"/>
+                                <DatePicker Date="{Binding Dt_ini}"
+                                        Format="dd/MM/yyyy"
+                                        FontSize="12"
+                                        HorizontalOptions="FillAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="FillAndExpand"
+                                         Grid.Column="1">
+                                <Label Text="Data Final"
+                                       TextColor="Gray"
+                                       FontSize="10"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"/>
+                                <DatePicker Date="{Binding Dt_fin}"
+                                        Format="dd/MM/yyyy"
+                                        FontSize="12"
+                                        HorizontalOptions="FillAndExpand"/>
+                            </StackLayout>
+                            <ImageButton Source="lupa.png"
+                                         CornerRadius="100"
+                                         HeightRequest="55"
+                                         WidthRequest="55"
+                                         Aspect="AspectFit"
+                                         Grid.Column="3"
+                                         Command="{Binding BuscarCommand}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="1" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="0.8" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource Key=verde_eloforte}"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </ImageButton>
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <CollectionView x:Name="cvOS"
+                                Margin="5"
+                                HorizontalOptions="FillAndExpand"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Always"
+                                ItemsSource="{Binding OS}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <Label Text="SEM OS"
+                                   FontSize="Title"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Key=verde_eloforte}"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <pv:PancakeView VerticalOptions="StartAndExpand"
+                                            HorizontalOptions="FillAndExpand">
+                                <Grid VerticalOptions="StartAndExpand"
+                                      HorizontalOptions="FillAndExpand"
+                                      ColumnDefinitions="Auto,*">
+                                    <BoxView BackgroundColor="{StaticResource Key=verde_eloforte}"
+                                             WidthRequest="3"
+                                             HorizontalOptions="Start"
+                                             VerticalOptions="FillAndExpand"/>
+                                    <tk:Expander Grid.Column="1">
+                                        <tk:Expander.Header>
+                                            <SwipeView HeightRequest="105"
+                                                       Padding="2"
+                                                       BackgroundColor="{StaticResource Key=cor_detalhe}">
+                                                <SwipeView.RightItems>
+                                                    <SwipeItems>
+                                                        <SwipeItemView Margin="5,0,0,0"
+                                                                       Padding="5"
+                                                                       Command="{Binding Source={x:Reference cvOS}, Path=BindingContext.ExcluirCommand}"
+                                                                       CommandParameter="{Binding .}">
+                                                            <ImageButton Source="del.png"
+                                                                         CornerRadius="100"
+                                                                         HeightRequest="55"
+                                                                         WidthRequest="55"
+                                                                         Aspect="AspectFit"
+                                                                         Grid.Column="3">
+                                                                <VisualStateManager.VisualStateGroups>
+                                                                    <VisualStateGroup x:Name="CommonStates">
+                                                                        <VisualState x:Name="Normal">
+                                                                            <VisualState.Setters>
+                                                                                <Setter Property="Scale"
+                                                                                        Value="1" />
+                                                                                <Setter Property="BackgroundColor"
+                                                                                        Value="Transparent"/>
+                                                                            </VisualState.Setters>
+                                                                        </VisualState>
+                                                                        <VisualState x:Name="Pressed">
+                                                                            <VisualState.Setters>
+                                                                                <Setter Property="Scale"
+                                                                                        Value="0.8" />
+                                                                                <Setter Property="BackgroundColor"
+                                                                                        Value="{StaticResource Key=verde_eloforte}"/>
+                                                                            </VisualState.Setters>
+                                                                        </VisualState>
+                                                                    </VisualStateGroup>
+                                                                </VisualStateManager.VisualStateGroups>
+                                                            </ImageButton>
+                                                        </SwipeItemView>
+                                                        <SwipeItemView Margin="5,0,0,0"
+                                                                       Padding="5"
+                                                                       Command="{Binding Source={x:Reference cvOS},Path=BindingContext.AlterarCommand}"
+                                                                       CommandParameter="{Binding .}">
+                                                            <ImageButton Source="editar.png"
+                                                                         CornerRadius="100"
+                                                                         HeightRequest="55"
+                                                                         WidthRequest="55"
+                                                                         Aspect="AspectFit"
+                                                                         Grid.Column="3">
+                                                                <VisualStateManager.VisualStateGroups>
+                                                                    <VisualStateGroup x:Name="CommonStates">
+                                                                        <VisualState x:Name="Normal">
+                                                                            <VisualState.Setters>
+                                                                                <Setter Property="Scale"
+                                                                                        Value="1" />
+                                                                                <Setter Property="BackgroundColor"
+                                                                                        Value="Transparent"/>
+                                                                            </VisualState.Setters>
+                                                                        </VisualState>
+                                                                        <VisualState x:Name="Pressed">
+                                                                            <VisualState.Setters>
+                                                                                <Setter Property="Scale"
+                                                                                        Value="0.8" />
+                                                                                <Setter Property="BackgroundColor"
+                                                                                        Value="{StaticResource Key=verde_eloforte}"/>
+                                                                            </VisualState.Setters>
+                                                                        </VisualState>
+                                                                    </VisualStateGroup>
+                                                                </VisualStateManager.VisualStateGroups>
+                                                            </ImageButton>
+                                                        </SwipeItemView>
+                                                    </SwipeItems>
+                                                </SwipeView.RightItems>
+                                                <Grid ColumnDefinitions="*,*,*"
+                                                      RowDefinitions="Auto,Auto,Auto">
+                                                    <StackLayout Orientation="Vertical"
+                                                                 HorizontalOptions="FillAndExpand">
+                                                        <Label Text="Nº OS"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Nr_os}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Vertical"
+                                                                 HorizontalOptions="FillAndExpand"
+                                                                 Grid.Column="1">
+                                                        <Label Text="Abertura"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Center"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Dt_abertura_OS, StringFormat='{0:dd/MM/yyyy}'}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Center"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Vertical"
+                                                                 HorizontalOptions="FillAndExpand"
+                                                                 Grid.Column="2">
+                                                        <Label Text="Vl. OS"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="End"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Vl_total, StringFormat='{0:C}'}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="End"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </StackLayout>
+                                                    <Grid HorizontalOptions="FillAndExpand"
+                                                          ColumnDefinitions="*,*"
+                                                          Grid.Row="1"
+                                                          Grid.ColumnSpan="3">
+                                                        <StackLayout Orientation="Vertical"
+                                                                     HorizontalOptions="FillAndExpand">
+                                                            <Label Text="Nome Fazenda"
+                                                                   TextColor="Gray"
+                                                                   FontSize="10"
+                                                                   FontAttributes="Bold"
+                                                                   HorizontalTextAlignment="Start"
+                                                                   VerticalTextAlignment="Center"/>
+                                                            <Label Text="{Binding Nm_fazenda}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Vertical"
+                                                                     HorizontalOptions="FillAndExpand"
+                                                                     Grid.Column="1">
+                                                            <Label Text="Cidade Fazenda"
+                                                                   TextColor="Gray"
+                                                                   FontSize="10"
+                                                                   FontAttributes="Bold"
+                                                                   HorizontalTextAlignment="Start"
+                                                                   VerticalTextAlignment="Center"/>
+                                                            <Label Text="{Binding Ds_cidadefazenda}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                    <Label Text="{Binding Nm_contratante}"
+                                                           TextColor="Black"
+                                                           FontSize="14"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"
+                                                           Grid.Row="2"
+                                                           Grid.ColumnSpan="3"/>
+                                                </Grid>
+                                            </SwipeView>
+                                        </tk:Expander.Header>
+                                        <StackLayout Orientation="Vertical"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     VerticalOptions="FillAndExpand">
+                                            <Grid HorizontalOptions="FillAndExpand"
+                                                  ColumnDefinitions="*,Auto"
+                                                  RowDefinitions="Auto,Auto">
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="Fill">
+                                                    <Label Text="Serviço"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Ds_servico}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             Grid.Column="1">
+                                                    <Label Text="Cultura"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Cultura}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             Grid.Row="1">
+                                                    <Label Text="Aeronave"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Ds_veiculo}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             Grid.Row="1"
+                                                             Grid.Column="1">
+                                                    <Label Text="Nº Voos"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Nr_voos}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                            <Grid HorizontalOptions="FillAndExpand"
+                                                  VerticalOptions="FillAndExpand"
+                                                  ColumnDefinitions="*,*,*">
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand">
+                                                    <Frame HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="FillAndExpand"
+                                                           BackgroundColor="{StaticResource Key=verde_eloforte}"
+                                                           Padding="0"
+                                                           Margin="0">
+                                                        <Label Text="H. IDA"
+                                                               FontSize="Caption"
+                                                               FontAttributes="Bold"
+                                                               TextColor="White"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="Start"
+                                                               HorizontalTextAlignment="Center"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Frame>
+                                                    <Grid HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          ColumnDefinitions="Auto,*"
+                                                          RowDefinitions="Auto,Auto,Auto">
+                                                        <Label Text="H0"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Text="{Binding Hr_ida_ini}"/>
+                                                        <Label Text="H1"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Grid.Row="1"
+                                                               Text="{Binding Hr_ida_fin}"/>
+                                                        <Label Text="="
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Hr_ida_result}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               Grid.Column="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Grid>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             Grid.Column="1">
+                                                    <Frame HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="FillAndExpand"
+                                                           BackgroundColor="{StaticResource Key=verde_eloforte}"
+                                                           Padding="0"
+                                                           Margin="0">
+                                                        <Label Text="H. OPERAÇÃO"
+                                                               FontSize="Caption"
+                                                               FontAttributes="Bold"
+                                                               TextColor="White"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="Start"
+                                                               HorizontalTextAlignment="Center"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Frame>
+                                                    <Grid HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          ColumnDefinitions="Auto,*"
+                                                          RowDefinitions="Auto,Auto,Auto">
+                                                        <Label Text="H0"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Text="{Binding Hr_operacao_ini}"/>
+                                                        <Label Text="H1"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Grid.Row="1"
+                                                               Text="{Binding Hr_operacao_fin}"/>
+                                                        <Label Text="="
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Hr_operacao_result}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               Grid.Column="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Grid>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             Grid.Column="2">
+                                                    <Frame HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="FillAndExpand"
+                                                           BackgroundColor="{StaticResource Key=verde_eloforte}"
+                                                           Padding="0"
+                                                           Margin="0">
+                                                        <Label Text="H. VOLTA"
+                                                               FontSize="Caption"
+                                                               FontAttributes="Bold"
+                                                               TextColor="White"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="Start"
+                                                               HorizontalTextAlignment="Center"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Frame>
+                                                    <Grid HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          ColumnDefinitions="Auto,*"
+                                                          RowDefinitions="Auto,Auto,Auto">
+                                                        <Label Text="H0"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Text="{Binding Hr_volta_ini}"/>
+                                                        <Label Text="H1"
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label TextColor="Black"
+                                                               FontSize="12"
+                                                               HorizontalOptions="FillAndExpand"
+                                                               Grid.Column="1"
+                                                               Grid.Row="1"
+                                                               Text="{Binding Hr_volta_fin}"/>
+                                                        <Label Text="="
+                                                               TextColor="Gray"
+                                                               FontSize="10"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                        <Label Text="{Binding Hr_volta_result}"
+                                                               TextColor="Black"
+                                                               FontSize="12"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="2"
+                                                               Grid.Column="1"
+                                                               HorizontalTextAlignment="Start"
+                                                               VerticalTextAlignment="Center"/>
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Grid>
+                                            <Grid HorizontalOptions="FillAndExpand"
+                                                  VerticalOptions="FillAndExpand"
+                                                  ColumnDefinitions="*,*,*,*">
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand">
+                                                    <Label Text="Total Mistura"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Totalmistura}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             VerticalOptions="FillAndExpand"
+                                                             Grid.Column="1">
+                                                    <Label Text="Vz Mistura"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Vz_mistura}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             VerticalOptions="FillAndExpand"
+                                                             Grid.Column="2">
+                                                    <Label Text="Faixa"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Faixa}"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             VerticalOptions="FillAndExpand"
+                                                             Grid.Column="3">
+                                                    <Label Text="Hectares"
+                                                           TextColor="Gray"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Start"
+                                                           VerticalTextAlignment="Center"/>
+                                                    <Label TextColor="Black"
+                                                           FontSize="12"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Text="{Binding Hectares}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                            <Label Text="Observação"
+                                                   TextColor="Gray"
+                                                   FontSize="10"
+                                                   FontAttributes="Bold"
+                                                   HorizontalTextAlignment="Start"
+                                                   VerticalTextAlignment="Center"/>
+                                            <Label TextColor="Black"
+                                                   FontSize="12"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   Text="{Binding Obs}"/>
+                                        </StackLayout>
+                                    </tk:Expander>
+                                </Grid>
+                            </pv:PancakeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Frame>
+        <Button x:Name="btnNovo"
+                ImageSource="salvar.png"
+                CornerRadius="100"
+                HeightRequest="55"
+                WidthRequest="55"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Padding="15"
+                Margin="0,0,15,5"
+                BackgroundColor="{StaticResource Key=verde_eloforte}"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Command="{Binding NovoCommand}"/>
+    </AbsoluteLayout>
+</ContentPage>

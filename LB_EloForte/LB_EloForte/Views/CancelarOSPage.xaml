@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LB_EloForte.Views.CancelarOSPage">
+    <Frame HasShadow="True"
+           CornerRadius="5"
+           Margin="5"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Center">
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Frame HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       CornerRadius="5"
+                       BackgroundColor="{StaticResource Key=verde_eloforte}">
+                    <Label Text="MOTIVO DO CANCELAMENTO"
+                           FontSize="Subtitle"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Start"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Frame>
+                <Editor x:Name="txtObs"
+                        Text="{Binding MotivoCanc}"
+                        AutoSize="TextChanges"
+                        MaxLength="1024"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    <Editor.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>Suggestions,CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Editor.Keyboard>
+                </Editor>
+                <Button x:Name="btnSalvar"
+                        Padding="50,15,50,15"
+                        Text="CONFIRMAR"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        CornerRadius="50"
+                        BackgroundColor="{StaticResource Key=verde_eloforte}"
+                        Command="{Binding ConfirmarCommand}"/>
+            </StackLayout>
+        </Frame>
+</ContentPage>

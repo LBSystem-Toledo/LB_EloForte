@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LB_EloForte.Views.LoginPage">
+    <Frame HasShadow="True"
+           CornerRadius="5"
+           Margin="10,0,10,0"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Center">
+            <StackLayout Spacing="10"
+                         Orientation="Vertical"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand">
+                <Image Source="logo.png"
+                       Aspect="AspectFit"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,10,10,0"/>
+                <Entry x:Name="txtLogin"
+                       Placeholder="Login"
+                       HorizontalOptions="FillAndExpand"
+                       Text="{Binding Login}"/>
+                <Entry x:Name="txtSenha"
+                       Placeholder="Senha"
+                       HorizontalOptions="FillAndExpand"
+                       IsPassword="True"
+                       Text="{Binding Senha}"/>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Fill">
+                    <CheckBox Color="{StaticResource Key=verde_eloforte}"
+                              IsChecked="{Binding LembrarSenha}"/>
+                    <Label Text="Lembrar de min"
+                           VerticalOptions="Center"
+                           FontSize="Body"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+                <Button x:Name="btnSalvar"
+                        Padding="50,15,50,15"
+                        Text="ENTRAR"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        CornerRadius="50"
+                        BackgroundColor="{StaticResource Key=verde_eloforte}"
+                        Command="{Binding LoginCommand}"/>
+            </StackLayout>
+        </Frame>
+</ContentPage>

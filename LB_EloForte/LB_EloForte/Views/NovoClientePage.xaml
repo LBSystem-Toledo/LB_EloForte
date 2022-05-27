@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:behaviorPack="clr-namespace:Xamarin.Forms.BehaviorValidationPack;assembly=Xamarin.Forms.BehaviorValidationPack"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LB_EloForte.Views.NovoClientePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="save.png"
+                     Order="Primary"
+                     Priority="0"
+                     Command="{Binding SalvarCommand}"/>
+    </ContentPage.ToolbarItems>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+        <Frame HasShadow="True"
+               CornerRadius="5"
+               Margin="5"
+               Padding="5"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout Padding="5"
+                         Orientation="Vertical">
+                <Frame HorizontalOptions="FillAndExpand"
+                       BackgroundColor="{StaticResource Key=verde_eloforte}"
+                       Padding="0"
+                       Margin="0">
+                    <Label Text="NOVO CLIENTE"
+                           FontSize="Title"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Start"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Frame>
+                <Entry x:Name="txtNome"
+                       Placeholder="Razão Social ou Nome *"
+                       Visual="Material"
+                       HorizontalOptions="FillAndExpand"
+                       ClearButtonVisibility="WhileEditing"
+                       TextTransform="Uppercase"
+                       Text="{Binding Cliente.Nm_clifor}"/>
+                <Picker x:Name="pkTpPessoa"
+                        Title="Tipo Pessoa"
+                        FontSize="16"
+                        HorizontalOptions="FillAndExpand"
+                        IsEnabled="{Binding Novo}"
+                        ItemsSource="{Binding TiposPessoas}"
+                        ItemDisplayBinding="{Binding Tipo_pessoa}"
+                        SelectedItem="{Binding TipoPessoaCorrente}"/>
+                <Entry x:Name="txtCnpj"
+                       Placeholder="CNPJ"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       IsVisible="{Binding isJuridica}"
+                       Text="{Binding Cliente.Cnpj}">
+                    <Entry.Behaviors>
+                        <behaviorPack:CPFValidationBehavior/>
+                        <behaviorPack:MaskedBehavior Mask="XX.XXX.XXX/XXXX-XX"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="txtInsc"
+                       Placeholder="Inscrição Estadual"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       IsVisible="{Binding isJuridica}"
+                       Text="{Binding Cliente.Insc_Estadual}"/>
+                <Entry x:Name="txtFantasia"
+                       Placeholder="Nome Fantasia"
+                       HorizontalOptions="FillAndExpand"
+                       TextTransform="Uppercase"
+                       IsVisible="{Binding isJuridica}"
+                       Text="{Binding Cliente.Nm_fantasia}"/>
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Fill"
+                      ColumnDefinitions="*,*"
+                      IsVisible="{Binding isFisica}">
+                    <Entry x:Name="txtCpf"
+                           Placeholder="CPF"
+                           Keyboard="Numeric"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Cliente.Cpf}">
+                        <Entry.Behaviors>
+                            <behaviorPack:CPFValidationBehavior/>
+                            <behaviorPack:MaskedBehavior Mask="XXX.XXX.XXX-XX"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="txtRg"
+                           Placeholder="RG"
+                           Keyboard="Numeric"
+                           HorizontalOptions="FillAndExpand"
+                           Grid.Column="1"
+                           Text="{Binding Cliente.Rg}"/>
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Entry x:Name="txtCep"
+                           Placeholder="CEP"
+                           Keyboard="Numeric"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Cliente.Cep}">
+                        <Entry.Behaviors>
+                            <behaviorPack:CEPValidationBehavior/>
+                            <behaviorPack:MaskedBehavior Mask="XX.XXX-XXX"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <ImageButton Source="lupa.png"
+                                 Margin="5,5,5,5"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Aspect="AspectFit"
+                                 Grid.Column="1"
+                                 Command="{Binding BuscarCepCommand}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                                                Value="1" />
+                                        <Setter Property="BackgroundColor"
+                                                Value="Transparent"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                                                Value="0.8" />
+                                        <Setter Property="BackgroundColor"
+                                                Value="{StaticResource Key=verde_eloforte}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+                </Grid>
+                <Entry x:Name="txtLogradouro"
+                       Placeholder="Rua *"
+                       HorizontalOptions="FillAndExpand"
+                       TextTransform="Uppercase"
+                       Text="{Binding Cliente.Ds_endereco}"/>
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Fill"
+                      ColumnDefinitions="*,80">
+                    <Entry x:Name="txtBairro"
+                           Placeholder="Bairro *"
+                           HorizontalOptions="FillAndExpand"
+                           TextTransform="Uppercase"
+                           Text="{Binding Cliente.Bairro}"/>
+                    <Entry x:Name="txtNumero"
+                           Placeholder="Nº *"
+                           Grid.Column="1"
+                           HorizontalOptions="FillAndExpand"
+                           TextTransform="Uppercase"
+                           Text="{Binding Cliente.Numero}"/>
+                </Grid>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BuscarCidadeCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Entry x:Name="txtCidade"
+                           Placeholder="Cidade *"
+                           InputTransparent="True"
+                           HorizontalOptions="FillAndExpand"
+                           IsReadOnly="True"
+                           Text="{Binding Cliente.Ds_cidade}"/>
+                </StackLayout>
+                <Entry x:Name="txtComplemento"
+                       Placeholder="Complemento"
+                       HorizontalOptions="FillAndExpand"
+                       TextTransform="Uppercase"
+                       Text="{Binding Cliente.Ds_complemento}"/>
+            </StackLayout>
+        </Frame>
+        <Button x:Name="btnNovo"
+                ImageSource="save.png"
+                CornerRadius="100"
+                HeightRequest="55"
+                WidthRequest="55"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Padding="15"
+                Margin="10"
+                BackgroundColor="{StaticResource Key=verde_eloforte}"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Command="{Binding SalvarCommand}"/>
+    </AbsoluteLayout>
+</ContentPage>
